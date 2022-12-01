@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://main--magenta-tarsier-65a38d.netlify.app",
+    origin: "https://oi-verse.netlify.app",
     methods: ["GET", "POST"],
   },
 });
