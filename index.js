@@ -15,7 +15,7 @@ const io = new Server(server, {
   },
 });
 io.on("connection", (socket) => {
-  socket.disconnect();
+  //socket.disconnect();
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_room", (data) => {
