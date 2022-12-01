@@ -14,18 +14,23 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
 io.on("connection", (socket) => {
   //socket.disconnect();
   console.log(`User Connected: ${socket.id}`);
 
   socket.on("join_room", (data) => {
-    console.log("join_room", data);
+    console.log(`join_room by ${socket.id}`, data);
     socket.join(data);
   });
 
   socket.on("leave_room", (data) => {
+    console.log(`leave_room by ${socket.id}`, data);
     socket.leave(data);
-    socket.disconnect();
+  });
+
+  socket.on("disconnect", (data) => {
+    console.log(`Got disconnect!${socket.id}`, data);
   });
 
   socket.on("send_message", (data) => {
