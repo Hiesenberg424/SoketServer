@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://oi-verse.netlify.app",
+    origin: "https://oiverse.azurewebsites.net",
     methods: ["GET", "POST"],
   },
 });
@@ -25,17 +25,21 @@ io.on("connection", (socket) => {
   });
 
   socket.on("leave_room", (data) => {
-    console.log(`leave_room by ${socket.id}`, data);
     socket.leave(data);
   });
+
+  socket.on("remove_player", (data) => {
+    console.log('removed',data);
+    socket.to(data.roomId).emit("receive_message", data)  });
 
   socket.on("disconnect", (data) => {
     console.log(`Got disconnect!${socket.id}`, data);
   });
 
   socket.on("send_message", (data) => {
-    console.log(data);
+     console.log(data);
     //socket.broadcast.emit("receive_message", data);
+    // socket.to(data.roomId).emit("receive_message", data);
     socket.to(data.roomId).emit("receive_message", data);
   });
 });
